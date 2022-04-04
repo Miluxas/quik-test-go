@@ -66,7 +66,7 @@ func main() {
 
 	port := os.Getenv("PORT")
 
-	log.Infof("\n\n PORT: %s \n ENV: %s \n SSL: %s \n Version: %s \n\n", port, os.Getenv("ENV"), os.Getenv("SSL"), os.Getenv("API_VERSION"))
+	log.Infof("\n\n PORT: %s \n ENV: %s \n Version: %s \n\n", port, os.Getenv("ENV"), os.Getenv("API_VERSION"))
 
 	serverEngine.Run(":" + port)
 

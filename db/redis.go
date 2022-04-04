@@ -33,8 +33,7 @@ func SetCacheBalance(walletId int32, balance decimal.Decimal) {
 		Key:   string(walletId),
 		Value: balance,
 	}); err != nil {
-		//log.Fatalln(err)
-		//panic(err)
+		log.Fatalln(err)
 	}
 }
 

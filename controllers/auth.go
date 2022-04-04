@@ -14,11 +14,10 @@ var authModel = new(models.AuthModel)
 
 func (ctl AuthController) TokenValid(context *gin.Context) {
 
-	tokenAuth, err := authModel.ExtractTokenMetadata(context.Request)
+	UserID, err := authModel.ExtractTokenMetadata(context.Request)
 	if err != nil {
 		context.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"message": "Please login first"})
 		return
 	}
-	userID := tokenAuth.UserID
-	context.Set("userID", userID)
+	context.Set("userID", UserID)
 }
