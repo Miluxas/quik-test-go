@@ -2,10 +2,11 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"miluxas/controllers"
 	"miluxas/db"
 	"os"
+
+	log "github.com/sirupsen/logrus"
 
 	"github.com/gin-contrib/gzip"
 
@@ -65,7 +66,7 @@ func main() {
 
 	port := os.Getenv("PORT")
 
-	log.Printf("\n\n PORT: %s \n ENV: %s \n SSL: %s \n Version: %s \n\n", port, os.Getenv("ENV"), os.Getenv("SSL"), os.Getenv("API_VERSION"))
+	log.Infoln("\n\n PORT: %s \n ENV: %s \n SSL: %s \n Version: %s \n\n", port, os.Getenv("ENV"), os.Getenv("SSL"), os.Getenv("API_VERSION"))
 
 	serverEngine.Run(":" + port)
 

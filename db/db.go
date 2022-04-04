@@ -1,8 +1,9 @@
 package db
 
 import (
-	"log"
 	"os"
+
+	log "github.com/sirupsen/logrus"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -15,13 +16,13 @@ type DB struct {
 var db *gorm.DB
 
 func Init() {
-	log.Println("connecting")
+	log.Debugln("connecting to db ... ")
 	var err error
 	db, err = connectDB()
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalln(err)
 	}
-
+	log.Infoln("Connect successfully.")
 }
 func connectDB() (*gorm.DB, error) {
 	var err error
@@ -30,7 +31,7 @@ func connectDB() (*gorm.DB, error) {
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 
 	if err != nil {
-		log.Println(err)
+		log.Fatalln(err)
 		return nil, err
 	}
 

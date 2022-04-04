@@ -2,7 +2,6 @@ package models
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 	"os"
 	"strconv"
@@ -58,7 +57,6 @@ func (m AuthModel) ExtractToken(request *http.Request) string {
 
 func (m AuthModel) VerifyToken(request *http.Request) (*jwt.Token, error) {
 	tokenString := m.ExtractToken(request)
-	log.Println(tokenString)
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])

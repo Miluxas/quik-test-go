@@ -1,8 +1,6 @@
 package models
 
 import (
-	"log"
-
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 )
@@ -22,7 +20,6 @@ var authModel = new(AuthModel)
 func (m UserModel) Login(db *gorm.DB, email string, password string) (user User, token string, err error) {
 	er := db.Where("email = ?", email).First(&user).Error
 	if er != nil {
-		log.Println(er)
 		return user, token, err
 	}
 

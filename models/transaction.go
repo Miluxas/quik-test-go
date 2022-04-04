@@ -2,8 +2,9 @@ package models
 
 import (
 	"errors"
-	"log"
 	Db "miluxas/db"
+
+	log "github.com/sirupsen/logrus"
 
 	"github.com/shopspring/decimal"
 	"gorm.io/gorm"
@@ -81,7 +82,7 @@ func GetBalance(db *gorm.DB, walletID int32) (balance decimal.Decimal, err error
 		Db.SetCacheBalance(walletID, newBalance)
 		return newBalance, nil
 	} else {
-		log.Println("read from cache")
+		log.Infoln("Read wallet balance from cache")
 		return cacheBalance, nil
 	}
 }
