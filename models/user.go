@@ -18,11 +18,10 @@ type UserModel struct{}
 var authModel = new(AuthModel)
 
 func (m UserModel) Login(db *gorm.DB, email string, password string) (user User, token string, err error) {
-	er := db.Where("email = ?", email).First(&user).Error
-	if er != nil {
-		return user, token, err
+	result := db.Where("email = ?", email).First(&user)
+	if result.Error != nil {
+		return user, token, result.Error
 	}
-
 	bytePassword := []byte(password)
 	byteHashedPassword := []byte(user.Password)
 	err = bcrypt.CompareHashAndPassword(byteHashedPassword, bytePassword)

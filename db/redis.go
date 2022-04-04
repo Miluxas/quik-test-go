@@ -18,7 +18,6 @@ func InitRedis() {
 	ring := redis.NewRing(&redis.RingOptions{
 		Addrs: map[string]string{
 			"server1": ":6379",
-			"server2": ":6380",
 		},
 	})
 
@@ -34,15 +33,17 @@ func SetCacheBalance(walletId int32, balance decimal.Decimal) {
 		Key:   string(walletId),
 		Value: balance,
 	}); err != nil {
-		log.Fatalln(err)
-		panic(err)
+		//log.Fatalln(err)
+		//panic(err)
 	}
 }
 
 func GetCacheBalance(walletId int32) (balance decimal.Decimal, err error) {
 
-	if err := mycache.Get(context.TODO(), string(walletId), &balance); err != nil {
-		log.Infoln(err)
+	cacheError := mycache.Get(context.TODO(), string(walletId), &balance)
+	if cacheError != nil {
+		log.Infoln(cacheError)
+		return balance, cacheError
 	}
 	return balance, nil
 }

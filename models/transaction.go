@@ -76,8 +76,8 @@ func GetBalance(db *gorm.DB, walletID int32) (balance decimal.Decimal, err error
 	if !isValidWallet {
 		return decimal.Zero.Floor(), errors.New("Wallet is not available")
 	}
-	cacheBalance, err := Db.GetCacheBalance(walletID)
-	if err != nil {
+	cacheBalance, cacheError := Db.GetCacheBalance(walletID)
+	if cacheError != nil {
 		newBalance, _ := getBalance(db, walletID)
 		Db.SetCacheBalance(walletID, newBalance)
 		return newBalance, nil
